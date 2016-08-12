@@ -1,0 +1,37 @@
+<div class="question_page_container">
+
+  <!-- <section id="question-display"> -->
+
+  <%= erb :'/partials/_question_display', locals: {question: @question}, layout: false %>
+
+  <section class="best-answer-display">
+    <h3 id="answer-header">Answers</h3>
+      <% best_answer = @question.answers.find_by(best_answer: true) %>
+      <% other_answers = @question.answers.where(best_answer: false).sort_by { |answer| -answer.votes.pluck("point_value").sum } %>
+      <% best_answer ? answer_array = [best_answer] : answer_array = [] %>
+      <% answer_array += other_answers %>
+      <% answer_array.each do |answer| %>
+
+      <%= erb :'partials/_new_answer', locals: { question: @question, answer: answer } %>
+
+      <% end %>
+    </section>
+  <ul>
+    <% if @errors %>
+      <% @errors.each do |error| %>
+        <li><%=error%></li>
+      <% end %>
+    <% end %>
+  </ul>
+
+  <% if current_user %>
+  <form id="post-answer" method="POST" action="/questions/<%= @question.id%>/answers" id="answer-question-form">
+    <textarea rows="5" cols="40" class="text" name="answer[content]"></textarea>
+    <input type="hidden" name="answer[user_id]" value="<%= current_user ? current_user.id : nil %>">
+    <input type="hidden" name="answer[question_id]" value="<%= @question.id%>">
+    <input type="submit" value="Post Answer">
+  </form>
+<% end %>
+</div>
+
+

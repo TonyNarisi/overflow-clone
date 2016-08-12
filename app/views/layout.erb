@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!--
+    normalize.css removes cross-browser differences in defaults, e.g.,
+    differences in how form elements appear between Firefox and IE
+    See: http://necolas.github.com/normalize.css/
+  -->
+  <link rel="stylesheet" href="/css/normalize.css">
+  <!--
+    application.css is where you put your styles
+  -->
+  <link rel="stylesheet" href="/css/application.css">
+  <link href='https://fonts.googleapis.com/css?family=Atomic+Age' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Roboto:500,900,100,300,700,400' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Bree+Serif' rel='stylesheet' type='text/css'>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script src="/js/application.js"></script>
+  <script src="/js/profile_page.js"></script>
+  <script src="/js/client_validation.js"></script>
+
+  <title></title>
+</head>
+<body>
+  <div class="navigation">
+    <h1 class="logo-font">Snack<strong>Overflow</strong></h1>
+    <nav>
+      <ul>
+      <li><a href="/">Home</a></li>
+      <% if logged_in? %>
+      <li><a href="/users/<%= current_user_id %>">Profile</a></li>
+      <li><a href="/users/logout"> Logout </a></li>
+
+      <li>Welcome, <%= current_username %>!</li>
+      <% else %>
+      <li><a href="/users/new"> Register </a></li>
+      <li><a href="/users/login"> Login </a></li>
+      <% end %>
+      </ul>
+    </nav>
+  </div>
+  <%= yield %>
+</body>
+</html>

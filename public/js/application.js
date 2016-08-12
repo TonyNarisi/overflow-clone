@@ -17,7 +17,8 @@ $(document).ready(function() {
   $(".content").on('submit',".question_form", function(e){
     e.preventDefault();
     $(this).hide();
-    // debugger;
+    $('h1').hide();
+    $('.ask_question').show()
     $.ajax({
       type: "POST",
       url: $(this).attr('action'),
@@ -118,6 +119,45 @@ $(document).ready(function() {
     .done(function(response){
       $(e.target).find('textarea').val("");
       $('.best-answer-display').append(response)
+    })
+  })
+
+  $('.question_page_container').on("submit",'.vote_buttons', function(e){
+    e.preventDefault();
+    points = $(e.target).parent().parent().find('.point_val')
+    $.ajax({
+      type: "POST",
+      url: $(e.target).attr('action'),
+      data: $(e.target).serialize()
+    })
+    .done(function(response){
+      $(points).html(response)
+    })
+  })
+
+  $('.answer-display').on("submit",'.vote_buttons', function(e){
+    e.preventDefault();
+    points = $(e.target).parent().parent().find('.point_val')
+    $.ajax({
+      type: "POST",
+      url: $(e.target).attr('action'),
+      data: $(e.target).serialize()
+    })
+    .done(function(response){
+      $(points).html(response)
+    })
+  })
+
+   $('.comment-container').on("submit",'.vote_buttons', function(e){
+    e.preventDefault();
+    points = $(e.target).parent().parent().find('.point_val')
+    $.ajax({
+      type: "POST",
+      url: $(e.target).attr('action'),
+      data: $(e.target).serialize()
+    })
+    .done(function(response){
+      $(points).html(response)
     })
   })
 });

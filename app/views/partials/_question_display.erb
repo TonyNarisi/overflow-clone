@@ -6,7 +6,7 @@
         <section id= "display">
         <p><%=question.content%></p>
         <p>Asked by: <a href="/users/<%=question.user_id%>"><%=question.user.username%></a></p>
-        <p>Points: <%=question.votes.pluck("point_value").sum %></p>
+        <p class="points">Points: <span class="point_val"><%=question.votes.pluck("point_value").sum %></span></p>
         <p><a class="add_question_comment" href="/questions/<%= question.id %>/comments/new">Add Comment</a></p>
 
         <% if current_user && current_user.id == question.user_id %>
